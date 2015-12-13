@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoyageurEditDlg" widgetVar="VoyageurEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVoyageurTitle}">
+            <h:form id="VoyageurEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voyageurController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_pseudo}" for="pseudo" />
+                        <p:inputText id="pseudo" value="#{voyageurController.selected.pseudo}" title="#{bundle.EditVoyageurTitle_pseudo}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_apropos}" for="apropos" />
+                        <p:inputText id="apropos" value="#{voyageurController.selected.apropos}" title="#{bundle.EditVoyageurTitle_apropos}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{voyageurController.selected.id}" title="#{bundle.EditVoyageurTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{voyageurController.selected.nom}" title="#{bundle.EditVoyageurTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{voyageurController.selected.prenom}" title="#{bundle.EditVoyageurTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_mail}" for="mail" />
+                        <p:inputText id="mail" value="#{voyageurController.selected.mail}" title="#{bundle.EditVoyageurTitle_mail}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{voyageurController.selected.password}" title="#{bundle.EditVoyageurTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_sexe}" for="sexe" />
+                        <p:inputText id="sexe" value="#{voyageurController.selected.sexe}" title="#{bundle.EditVoyageurTitle_sexe}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{voyageurController.selected.adresse}" title="#{bundle.EditVoyageurTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditVoyageurLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{voyageurController.selected.phone}" title="#{bundle.EditVoyageurTitle_phone}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voyageurController.update}" value="#{bundle.Save}" update="display,:VoyageurListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VoyageurEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoyageurEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

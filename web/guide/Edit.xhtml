@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GuideEditDlg" widgetVar="GuideEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGuideTitle}">
+            <h:form id="GuideEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{guideController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGuideLabel_compagnie}" for="compagnie" />
+                        <p:selectOneMenu id="compagnie" value="#{guideController.selected.compagnie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{compagnieController.itemsAvailableSelectOne}"
+                                           var="compagnieItem"
+                                           itemValue="#{compagnieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGuideLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{guideController.selected.id}" title="#{bundle.EditGuideTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{guideController.selected.nom}" title="#{bundle.EditGuideTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{guideController.selected.prenom}" title="#{bundle.EditGuideTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_mail}" for="mail" />
+                        <p:inputText id="mail" value="#{guideController.selected.mail}" title="#{bundle.EditGuideTitle_mail}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{guideController.selected.password}" title="#{bundle.EditGuideTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_sexe}" for="sexe" />
+                        <p:inputText id="sexe" value="#{guideController.selected.sexe}" title="#{bundle.EditGuideTitle_sexe}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{guideController.selected.adresse}" title="#{bundle.EditGuideTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditGuideLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{guideController.selected.phone}" title="#{bundle.EditGuideTitle_phone}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{guideController.update}" value="#{bundle.Save}" update="display,:GuideListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GuideEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GuideEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

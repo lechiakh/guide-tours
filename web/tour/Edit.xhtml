@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TourEditDlg" widgetVar="TourEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTourTitle}">
+            <h:form id="TourEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tourController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTourLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{tourController.selected.id}" title="#{bundle.EditTourTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_titre}" for="titre" />
+                        <p:inputText id="titre" value="#{tourController.selected.titre}" title="#{bundle.EditTourTitle_titre}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{tourController.selected.adresse}" title="#{bundle.EditTourTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_dureeHeure}" for="dureeHeure" />
+                        <p:inputText id="dureeHeure" value="#{tourController.selected.dureeHeure}" title="#{bundle.EditTourTitle_dureeHeure}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{tourController.selected.prix}" title="#{bundle.EditTourTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_vueGenerale}" for="vueGenerale" />
+                        <p:inputText id="vueGenerale" value="#{tourController.selected.vueGenerale}" title="#{bundle.EditTourTitle_vueGenerale}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_details}" for="details" />
+                        <p:inputText id="details" value="#{tourController.selected.details}" title="#{bundle.EditTourTitle_details}" />
+                        <p:outputLabel value="#{bundle.EditTourLabel_guide}" for="guide" />
+                        <p:selectOneMenu id="guide" value="#{tourController.selected.guide}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{guideController.itemsAvailableSelectOne}"
+                                           var="guideItem"
+                                           itemValue="#{guideItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tourController.update}" value="#{bundle.Save}" update="display,:TourListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TourEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TourEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

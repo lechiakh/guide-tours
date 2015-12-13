@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoyageurViewDlg" widgetVar="VoyageurViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVoyageurTitle}">
+            <h:form id="VoyageurViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voyageurController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_pseudo}"/>
+                        <h:outputText value="#{voyageurController.selected.pseudo}" title="#{bundle.ViewVoyageurTitle_pseudo}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_apropos}"/>
+                        <h:outputText value="#{voyageurController.selected.apropos}" title="#{bundle.ViewVoyageurTitle_apropos}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_id}"/>
+                        <h:outputText value="#{voyageurController.selected.id}" title="#{bundle.ViewVoyageurTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_nom}"/>
+                        <h:outputText value="#{voyageurController.selected.nom}" title="#{bundle.ViewVoyageurTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_prenom}"/>
+                        <h:outputText value="#{voyageurController.selected.prenom}" title="#{bundle.ViewVoyageurTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_mail}"/>
+                        <h:outputText value="#{voyageurController.selected.mail}" title="#{bundle.ViewVoyageurTitle_mail}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_password}"/>
+                        <h:outputText value="#{voyageurController.selected.password}" title="#{bundle.ViewVoyageurTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_sexe}"/>
+                        <h:outputText value="#{voyageurController.selected.sexe}" title="#{bundle.ViewVoyageurTitle_sexe}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_adresse}"/>
+                        <h:outputText value="#{voyageurController.selected.adresse}" title="#{bundle.ViewVoyageurTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewVoyageurLabel_phone}"/>
+                        <h:outputText value="#{voyageurController.selected.phone}" title="#{bundle.ViewVoyageurTitle_phone}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VoyageurViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

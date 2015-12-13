@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvisViewDlg" widgetVar="AvisViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAvisTitle}">
+            <h:form id="AvisViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avisController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAvisLabel_id}"/>
+                        <h:outputText value="#{avisController.selected.id}" title="#{bundle.ViewAvisTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAvisLabel_voyageur}"/>
+                        <h:outputText value="#{avisController.selected.voyageur}" title="#{bundle.ViewAvisTitle_voyageur}"/>
+                        <h:outputText value="#{bundle.ViewAvisLabel_tour}"/>
+                        <h:outputText value="#{avisController.selected.tour}" title="#{bundle.ViewAvisTitle_tour}"/>
+                        <h:outputText value="#{bundle.ViewAvisLabel_note}"/>
+                        <h:outputText value="#{avisController.selected.note}" title="#{bundle.ViewAvisTitle_note}"/>
+                        <h:outputText value="#{bundle.ViewAvisLabel_description}"/>
+                        <h:outputText value="#{avisController.selected.description}" title="#{bundle.ViewAvisTitle_description}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AvisViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
