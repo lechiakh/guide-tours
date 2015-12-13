@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -32,6 +33,8 @@ public class Tour implements Serializable {
     private Float prix;
     private String vueGenerale;
     private String details;
+    @ManyToOne
+    private Guide guide;
     @OneToMany(mappedBy = "tour")
     private List<Avis> avis;
     @OneToMany(mappedBy = "tour")
@@ -107,6 +110,14 @@ public class Tour implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 
     @Override

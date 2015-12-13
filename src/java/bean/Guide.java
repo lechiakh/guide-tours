@@ -6,11 +6,10 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -19,22 +18,13 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @DiscriminatorValue(value = "Guide")
-public class Guide implements Serializable {
+public class Guide extends Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     
     @OneToOne
     private Compagnie compagnie;
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "guide")
+    private List<Tour> tours;
 
     public Compagnie getCompagnie() {
         return compagnie;
@@ -44,10 +34,18 @@ public class Guide implements Serializable {
         this.compagnie = compagnie;
     }
 
+    public List<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(List<Tour> tours) {
+        this.tours = tours;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (getId() != null ? getId().hashCode() : 0);
         return hash;
     }
 
@@ -58,7 +56,7 @@ public class Guide implements Serializable {
             return false;
         }
         Guide other = (Guide) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
             return false;
         }
         return true;
@@ -66,7 +64,7 @@ public class Guide implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Guide[ id=" + id + " ]";
+        return "bean.Guide[ id=" + getId() + " ]";
     }
     
 }

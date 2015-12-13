@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -30,7 +29,7 @@ public class Voyage implements Serializable {
     @ManyToOne
     private Voyageur voyageur;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date Date;
+    private Date date;
     private Integer etat;
     private String langue;
 
@@ -59,11 +58,11 @@ public class Voyage implements Serializable {
     }
 
     public Date getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(Date Date) {
-        this.Date = Date;
+        this.date = Date;
     }
 
     public Integer getEtat() {
