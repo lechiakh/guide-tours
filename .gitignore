@@ -9,3 +9,4 @@ nbactions.xml
 
 # Glassfish
 setup/glassfish-resources.xml
+/web/WEB-INF/glassfish-resources.xml
