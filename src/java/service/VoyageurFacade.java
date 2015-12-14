@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package service;
 
-import bean.Avis;
+import bean.Voyageur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Khalid
  */
 @Stateless
-public class AvisFacade extends AbstractFacade<Avis> {
+public class VoyageurFacade extends AbstractFacade<Voyageur> {
     @PersistenceContext(unitName = "guide_touristiquePU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class AvisFacade extends AbstractFacade<Avis> {
         return em;
     }
 
-    public AvisFacade() {
-        super(Avis.class);
+    public VoyageurFacade() {
+        super(Voyageur.class);
     }
     
 }

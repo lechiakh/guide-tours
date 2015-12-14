@@ -1,9 +1,9 @@
-package service;
+package controller;
 
-import bean.Avis;
+import bean.Compagnie;
 import service.util.JsfUtil;
 import service.util.JsfUtil.PersistAction;
-import controller.AvisFacade;
+import service.CompagnieFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "avisController")
+@ManagedBean(name = "compagnieController")
 @SessionScoped
-public class AvisController implements Serializable {
+public class CompagnieController implements Serializable {
 
     @EJB
-    private controller.AvisFacade ejbFacade;
-    private List<Avis> items = null;
-    private Avis selected;
+    private service.CompagnieFacade ejbFacade;
+    private List<Compagnie> items = null;
+    private Compagnie selected;
 
-    public AvisController() {
+    public CompagnieController() {
     }
 
-    public Avis getSelected() {
+    public Compagnie getSelected() {
         return selected;
     }
 
-    public void setSelected(Avis selected) {
+    public void setSelected(Compagnie selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class AvisController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private AvisFacade getFacade() {
+    private CompagnieFacade getFacade() {
         return ejbFacade;
     }
 
-    public Avis prepareCreate() {
-        selected = new Avis();
+    public Compagnie prepareCreate() {
+        selected = new Compagnie();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AvisCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CompagnieCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AvisUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CompagnieUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AvisDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CompagnieDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Avis> getItems() {
+    public List<Compagnie> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,24 +109,24 @@ public class AvisController implements Serializable {
         }
     }
 
-    public List<Avis> getItemsAvailableSelectMany() {
+    public List<Compagnie> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Avis> getItemsAvailableSelectOne() {
+    public List<Compagnie> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Avis.class)
-    public static class AvisControllerConverter implements Converter {
+    @FacesConverter(forClass = Compagnie.class)
+    public static class CompagnieControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AvisController controller = (AvisController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "avisController");
+            CompagnieController controller = (CompagnieController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "compagnieController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -147,11 +147,11 @@ public class AvisController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Avis) {
-                Avis o = (Avis) object;
+            if (object instanceof Compagnie) {
+                Compagnie o = (Compagnie) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Avis.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Compagnie.class.getName()});
                 return null;
             }
         }

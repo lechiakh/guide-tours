@@ -1,9 +1,9 @@
-package service;
+package controller;
 
-import bean.Guide;
+import bean.Avis;
 import service.util.JsfUtil;
 import service.util.JsfUtil.PersistAction;
-import controller.GuideFacade;
+import service.AvisFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "guideController")
+@ManagedBean(name = "avisController")
 @SessionScoped
-public class GuideController implements Serializable {
+public class AvisController implements Serializable {
 
     @EJB
-    private controller.GuideFacade ejbFacade;
-    private List<Guide> items = null;
-    private Guide selected;
+    private service.AvisFacade ejbFacade;
+    private List<Avis> items = null;
+    private Avis selected;
 
-    public GuideController() {
+    public AvisController() {
     }
 
-    public Guide getSelected() {
+    public Avis getSelected() {
         return selected;
     }
 
-    public void setSelected(Guide selected) {
+    public void setSelected(Avis selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class GuideController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private GuideFacade getFacade() {
+    private AvisFacade getFacade() {
         return ejbFacade;
     }
 
-    public Guide prepareCreate() {
-        selected = new Guide();
+    public Avis prepareCreate() {
+        selected = new Avis();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GuideCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AvisCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GuideUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AvisUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("GuideDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AvisDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Guide> getItems() {
+    public List<Avis> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,24 +109,24 @@ public class GuideController implements Serializable {
         }
     }
 
-    public List<Guide> getItemsAvailableSelectMany() {
+    public List<Avis> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Guide> getItemsAvailableSelectOne() {
+    public List<Avis> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Guide.class)
-    public static class GuideControllerConverter implements Converter {
+    @FacesConverter(forClass = Avis.class)
+    public static class AvisControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GuideController controller = (GuideController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "guideController");
+            AvisController controller = (AvisController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "avisController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -147,11 +147,11 @@ public class GuideController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Guide) {
-                Guide o = (Guide) object;
+            if (object instanceof Avis) {
+                Avis o = (Avis) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Guide.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Avis.class.getName()});
                 return null;
             }
         }
