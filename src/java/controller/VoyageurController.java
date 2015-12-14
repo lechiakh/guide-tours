@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,9 @@ import javax.faces.convert.FacesConverter;
 @ManagedBean(name = "voyageurController")
 @SessionScoped
 public class VoyageurController implements Serializable {
+    
+    @ManagedProperty("#{userSession}")
+    private SessionController session;
 
     @EJB
     private service.VoyageurFacade ejbFacade;
@@ -37,6 +41,10 @@ public class VoyageurController implements Serializable {
 
     public void setSelected(Voyageur selected) {
         this.selected = selected;
+    }
+
+    public void setSession(SessionController session) {
+        this.session = session;
     }
 
     protected void setEmbeddableKeys() {
@@ -156,6 +164,13 @@ public class VoyageurController implements Serializable {
             }
         }
 
+    }
+    
+    public void authentifier() {
+        Voyageur guide = ejbFacade.authentifierVoyageur(selected);
+        if (guide != null) {
+            session.setUtilisateur(guide);
+        }
     }
 
 }

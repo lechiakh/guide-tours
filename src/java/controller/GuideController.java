@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,9 @@ import javax.faces.convert.FacesConverter;
 @ManagedBean(name = "guideController")
 @SessionScoped
 public class GuideController implements Serializable {
+
+    @ManagedProperty("#{userSession}")
+    private SessionController session;
 
     @EJB
     private service.GuideFacade ejbFacade;
@@ -37,6 +41,14 @@ public class GuideController implements Serializable {
 
     public void setSelected(Guide selected) {
         this.selected = selected;
+    }
+
+    public SessionController getSession() {
+        return session;
+    }
+
+    public void setSession(SessionController session) {
+        this.session = session;
     }
 
     protected void setEmbeddableKeys() {
@@ -156,6 +168,13 @@ public class GuideController implements Serializable {
             }
         }
 
+    }
+
+    public void authentifier() {
+        Guide guide = ejbFacade.authentifierGuide(selected);
+        if (guide != null) {
+            session.setUtilisateur(guide);
+        }
     }
 
 }

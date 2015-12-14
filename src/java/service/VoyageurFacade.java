@@ -5,10 +5,13 @@
  */
 package service;
 
+import bean.Utilisateur;
 import bean.Voyageur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +19,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class VoyageurFacade extends AbstractFacade<Voyageur> {
+
     @PersistenceContext(unitName = "guide_touristiquePU")
     private EntityManager em;
 
@@ -27,5 +31,21 @@ public class VoyageurFacade extends AbstractFacade<Voyageur> {
     public VoyageurFacade() {
         super(Voyageur.class);
     }
-    
+
+    public Voyageur authentifierVoyageur(Utilisateur voyageurRequest) {
+        String q = "SELECT v FROM Voyageur v WHERE v.mail = :mail";
+        Query query = em.createQuery(q);
+        query.setParameter("mail", voyageurRequest.getMail());
+        try {
+            Voyageur v = (Voyageur) query.getSingleResult();
+            if(voyageurRequest.getPassword().equals(v.getPassword())){
+                return v;
+            }else{
+                return null;
+            }
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
 }
