@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -31,13 +30,10 @@ public class GuideFacade extends AbstractFacade<Guide> {
     }
     
     public Guide authentifierGuide(Guide guideRequest) {
-        String q = "SELECT g FROM Guide g WHERE g.mail = :mail";
-        Query query = em.createQuery(q);
-        query.setParameter("mail", guideRequest.getMail());
         try {
-            Guide g = (Guide) query.getSingleResult();
-            if(guideRequest.getPassword().equals(g.getPassword())){
-                return g;
+            Guide loadedGuide = (Guide) em.createQuery("SELECT g FROM Guide g WHERE g.mail='"+guideRequest.getMail()+"'").getSingleResult();
+            if(guideRequest.getPassword().equals(loadedGuide.getPassword())){
+                return loadedGuide;
             }else{
                 return null;
             }
