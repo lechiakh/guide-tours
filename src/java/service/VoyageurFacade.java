@@ -5,7 +5,6 @@
  */
 package service;
 
-import bean.Utilisateur;
 import bean.Voyageur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,7 +31,7 @@ public class VoyageurFacade extends AbstractFacade<Voyageur> {
         super(Voyageur.class);
     }
 
-    public Voyageur authentifierVoyageur(Utilisateur voyageurRequest) {
+    public Voyageur authentifierVoyageur(Voyageur voyageurRequest) {
         String q = "SELECT v FROM Voyageur v WHERE v.mail = :mail";
         Query query = em.createQuery(q);
         query.setParameter("mail", voyageurRequest.getMail());

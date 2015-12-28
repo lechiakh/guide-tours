@@ -6,7 +6,6 @@
 package service;
 
 import bean.Guide;
-import bean.Utilisateur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -31,7 +30,7 @@ public class GuideFacade extends AbstractFacade<Guide> {
         super(Guide.class);
     }
     
-    public Guide authentifierGuide(Utilisateur guideRequest) {
+    public Guide authentifierGuide(Guide guideRequest) {
         String q = "SELECT g FROM Guide g WHERE g.mail = :mail";
         Query query = em.createQuery(q);
         query.setParameter("mail", guideRequest.getMail());
